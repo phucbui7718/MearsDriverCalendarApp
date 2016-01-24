@@ -2,7 +2,7 @@ package mears.mearsdrivercalendarapp;
 
 /**
  * Steve Hello World
- * Will says "F You and your little dog too!"
+ * Will says "System setup is such a pain!"
  * Test of VCS
  */
 
