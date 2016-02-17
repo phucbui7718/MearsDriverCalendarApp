@@ -1,34 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="mears.mearsdrivercalendarapp.MainActivity">
+    tools:context="mears.mearsdrivercalendarapp.MainActivity"
+    >
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
-
-    </android.support.design.widget.AppBarLayout>
-
-    <include layout="@layout/content_main" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+    <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_dialog_email" />
+        android:layout_height="60px"
+        android:text="Enter Driver Number: "
+        android:id="@+id/usernameTextView"
+        android:layout_marginTop="150dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
-</android.support.design.widget.CoordinatorLayout>
+    <EditText
+        android:layout_width="300px"
+        android:layout_height="60px"
+        android:id="@+id/editText"
+        android:layout_below="@+id/usernameTextView"
+        android:layout_alignLeft="@+id/usernameTextView"
+        android:layout_alignStart="@+id/usernameTextView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="60px"
+        android:text="Enter Password: "
+        android:id="@+id/textView2"
+        android:layout_below="@+id/editText"
+        android:layout_alignLeft="@+id/editText"
+        android:layout_alignStart="@+id/editText" />
+
+    <EditText
+        android:layout_width="300px"
+        android:layout_height="60px"
+        android:id="@+id/editText2"
+        android:inputType="textPassword"
+        android:layout_below="@+id/textView2"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignStart="@+id/textView2" />
+
+
+
+
+</RelativeLayout>
