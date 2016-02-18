@@ -6,45 +6,91 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context="mears.mearsdrivercalendarapp.MainActivity"
+    android:background="#e6e600"
     >
 
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Mears Driver Calendar"
+                android:textColor="#FFFFFF"
+                android:textSize="20dp"
+                android:id="@+id/toolbar_title"
+                android:textAlignment="center"/>
+
+        </android.support.v7.widget.Toolbar>
+
+
+    </android.support.design.widget.AppBarLayout>
+    <include layout="@layout/content_calendar" />
+
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="60px"
-        android:text="Enter Driver Number: "
+        android:text="    Enter Driver Number: "
         android:id="@+id/usernameTextView"
         android:layout_marginTop="150dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        />
 
     <EditText
         android:layout_width="300px"
         android:layout_height="60px"
-        android:id="@+id/editText"
+        android:id="@+id/usernameEditText"
         android:layout_below="@+id/usernameTextView"
-        android:layout_alignLeft="@+id/usernameTextView"
-        android:layout_alignStart="@+id/usernameTextView" />
+        android:background="@drawable/rounded_edittext"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="60px"
-        android:text="Enter Password: "
-        android:id="@+id/textView2"
-        android:layout_below="@+id/editText"
-        android:layout_alignLeft="@+id/editText"
-        android:layout_alignStart="@+id/editText" />
+        android:text="Enter Password:"
+        android:id="@+id/passwordTextView"
+        android:gravity="center"
+        android:layout_below="@+id/usernameEditText"
+        android:layout_alignLeft="@+id/usernameEditText"
+        android:layout_alignStart="@+id/usernameEditText"
+        android:layout_alignRight="@+id/usernameEditText"
+        android:layout_alignEnd="@+id/usernameEditText" />
 
     <EditText
         android:layout_width="300px"
         android:layout_height="60px"
-        android:id="@+id/editText2"
+        android:id="@+id/passwordTextEdit"
         android:inputType="textPassword"
-        android:layout_below="@+id/textView2"
-        android:layout_alignLeft="@+id/textView2"
-        android:layout_alignStart="@+id/textView2" />
+        android:layout_below="@+id/passwordTextView"
+        android:background="@drawable/rounded_edittext"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        />
 
-
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Login"
+        android:id="@+id/loginButton"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rounded_button"
+        android:layout_below="@+id/passwordTextEdit"
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>
