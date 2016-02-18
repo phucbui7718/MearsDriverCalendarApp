@@ -7,6 +7,7 @@ package mears.mearsdrivercalendarapp;
  * Test of VCS
  */
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         EditText usernameEditText = (EditText) findViewById(R.id.usernameEditText);
         EditText passwordEditText= (EditText) findViewById(R.id.passwordTextEdit);
 
-
+        //Create an intent to switch to Calendar if login successfully
 
     }
 
