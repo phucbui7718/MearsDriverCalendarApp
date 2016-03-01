@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import ch.qos.logback.classic.util.ContextInitializer;
+//import ch.qos.logback.classic.util.ContextInitializer;
 
 public class calendarActivity extends AppCompatActivity {
 
