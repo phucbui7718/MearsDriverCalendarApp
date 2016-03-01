@@ -1,7 +1,7 @@
 package repositories;
 
-import com.mongodb.MongoClient;
-import com.mongodb.MongoClientURI;
+//import com.mongodb.MongoClient;
+//import com.mongodb.MongoClientURI;
 
 
 /**
@@ -10,7 +10,7 @@ import com.mongodb.MongoClientURI;
 public class MongoDBConnection {
 
 
-    MongoClientURI mongoClientURI = new MongoClientURI("mongodb://<admin>:<admin>@ds062898.mongolab.com:62898/mearsdriverdb");
-    MongoClient mongoClient = new MongoClient(mongoClientURI);
+   // MongoClientURI mongoClientURI = new MongoClientURI("mongodb://<admin>:<admin>@ds062898.mongolab.com:62898/mearsdriverdb");
+   // MongoClient mongoClient = new MongoClient(mongoClientURI);
 
 }

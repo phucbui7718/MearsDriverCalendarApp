@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -25,12 +26,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //matching buttons and editTexts between Java and XML.
-        Button loginButton = (Button) findViewById(R.id.loginButton);
-        EditText usernameEditText = (EditText) findViewById(R.id.usernameEditText);
-        EditText passwordEditText= (EditText) findViewById(R.id.passwordTextEdit);
+//        //matching buttons and editTexts between Java and XML.
+//        Button loginButton = (Button) findViewById(R.id.loginButton);
+//        EditText usernameEditText = (EditText) findViewById(R.id.usernameEditText);
+//        EditText passwordEditText= (EditText) findViewById(R.id.passwordTextEdit);
 
-        //Create an intent to switch to Calendar if login successfully
+        String loginPath = "android_asset/login.html";
+
+        WebView loginWebView = (WebView) findViewById(R.id.loginVebView);
+        loginWebView.loadUrl("file:///" + loginPath);
+
 
     }
 
