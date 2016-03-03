@@ -31,10 +31,10 @@ public class MainActivity extends AppCompatActivity {
 //        EditText usernameEditText = (EditText) findViewById(R.id.usernameEditText);
 //        EditText passwordEditText= (EditText) findViewById(R.id.passwordTextEdit);
 
-        String loginPath = "android_asset/login.html";
+        String loginPath = "http://10.0.2.2:8099";
 
         WebView loginWebView = (WebView) findViewById(R.id.loginVebView);
-        loginWebView.loadUrl("file:///" + loginPath);
+        loginWebView.loadUrl(loginPath);
 
 
     }
