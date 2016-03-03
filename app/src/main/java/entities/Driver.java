@@ -1,19 +1,33 @@
 package entities;
 
+
+import org.springframework.data.annotation.Id;
+
 /**
  * Created by Phuc on 2/19/2016.
  */
 public class Driver {
 
-    private String drivernum;
+    @Id
+    private String id;
+    private String driverNum;
     private String password;
 
+    public Driver(){
+
+    }
+
+    public Driver(String password, String driverNum) {
+        this.password = password;
+        this.driverNum = driverNum;
+    }
+
     public String getDrivernum() {
-        return drivernum;
+        return driverNum;
     }
 
     public void setDrivernum(String drivernum) {
-        this.drivernum = drivernum;
+        this.driverNum = drivernum;
     }
 
     public String getPassword() {
@@ -23,4 +37,5 @@ public class Driver {
     public void setPassword(String password) {
         this.password = password;
     }
+
 }
