@@ -1,7 +1,8 @@
 package entities;
 
 
-import org.springframework.data.annotation.Id;
+
+import javax.persistence.Id;
 
 /**
  * Created by Phuc on 2/19/2016.
@@ -22,12 +23,12 @@ public class Driver {
         this.driverNum = driverNum;
     }
 
-    public String getDrivernum() {
+    public String getDriveNum() {
         return driverNum;
     }
 
-    public void setDrivernum(String drivernum) {
-        this.driverNum = drivernum;
+    public void setDriverNum(String driverNum) {
+        this.driverNum = driverNum;
     }
 
     public String getPassword() {

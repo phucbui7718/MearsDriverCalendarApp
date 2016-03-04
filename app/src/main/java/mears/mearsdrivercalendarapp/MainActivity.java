@@ -19,22 +19,31 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import controllers.AuthenticationController;
+import services.AuthenticationService;
+
 public class MainActivity extends AppCompatActivity {
+
+    public AuthenticationController authenticationController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        //matching buttons and editTexts between Java and XML.
-//        Button loginButton = (Button) findViewById(R.id.loginButton);
-//        EditText usernameEditText = (EditText) findViewById(R.id.usernameEditText);
-//        EditText passwordEditText= (EditText) findViewById(R.id.passwordTextEdit);
+      //matching buttons and editTexts between Java and XML.
+      Button loginButton = (Button) findViewById(R.id.loginButton);
+      final EditText usernameEditText = (EditText) findViewById(R.id.usernameEditText);
+      final EditText passwordEditText= (EditText) findViewById(R.id.passwordTextEdit);
 
-        String loginPath = "http://10.0.2.2:8099";
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-        WebView loginWebView = (WebView) findViewById(R.id.loginVebView);
-        loginWebView.loadUrl(loginPath);
+                authenticationController.login(usernameEditText.getText().toString(), passwordEditText.getText().toString());
+
+            }
+        });
 
 
     }
