@@ -11,6 +11,7 @@ public class AuthenticationService {
 
     @Autowired
     DriverRepository driverRepository;
+
     public boolean isDriverAuthenticated(String driverNum, String password)
     {
         Driver driver = driverRepository.findByDriverNum(driverNum);
