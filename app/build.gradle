@@ -50,10 +50,7 @@ dependencies {
 
 
 
-    //compile 'org.springframework.android:spring-android-rest-template:2.0.0.M3'
-   // compile 'org.mongodb:mongo-java-driver:3.0.0'
-   // compile 'com.android.support:multidex:1.0.0'
-   // compile 'org.springframework:spring-web:4.2.5.RELEASE'
+
 
 }
 
