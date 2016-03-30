@@ -68,7 +68,8 @@
         android:layout_alignLeft="@+id/usernameEditText"
         android:layout_alignStart="@+id/usernameEditText"
         android:layout_alignRight="@+id/usernameEditText"
-        android:layout_alignEnd="@+id/usernameEditText" />
+        android:layout_alignEnd="@+id/usernameEditText"
+        />
 
     <EditText
         android:layout_width="300px"
@@ -90,7 +91,32 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/rounded_button"
         android:layout_below="@+id/passwordTextEdit"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/statusText"
+        android:layout_below="@+id/loginButton"
+        android:gravity="center"
+        android:textColor="#DC143C"
+        android:layout_centerHorizontal="true"
+
+        />
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Switch"
+        android:id="@+id/loginButton1"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rounded_button"
+        android:layout_below="@+id/statusText"
+        android:layout_centerHorizontal="true"
+        android:onClick="goToCalendar"
+        />
 
 </RelativeLayout>

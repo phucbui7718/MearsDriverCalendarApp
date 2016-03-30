@@ -12,10 +12,4 @@
     tools:context="mears.mearsdrivercalendarapp.MainActivity"
     tools:showIn="@layout/activity_main" >
 
-
-
-
-
-
-
 </RelativeLayout>
