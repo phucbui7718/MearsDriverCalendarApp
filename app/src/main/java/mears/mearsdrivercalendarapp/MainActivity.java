@@ -33,6 +33,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
+import entities.DriverRequest;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -72,12 +74,8 @@ public class MainActivity extends AppCompatActivity {
                     statusTextView.setText("Wrong login information!");
                 }
 
-
             }
         });
-
-
-
     }
 
     @Override
@@ -103,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
+    //Custom Login params for AsyncTask
     private static class AsyncTaskParams{
 
         String driverNum;
@@ -143,14 +141,29 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //InsertRequest AsyncTask
-   class RequestAsync extends AsyncTask<Void, Void, Void>{
+   class RequestAsyncTask extends AsyncTask<Void, Void, Void>{
 
+        private  DriverRequest newDriverRequest;
+
+        RequestAsyncTask(DriverRequest newDriverRequest){
+            this.newDriverRequest = newDriverRequest;
+        }
 
         @Override
         protected Void doInBackground(Void... params) {
+
+            // Create Rest Template for request
+            RestTemplate restTemplate = new RestTemplate();
+
+            String url = "http://10.0.2.2:8099/requests/add";
+            restTemplate.getMessageConverters().add(new MappingJacksonHttpMessageConverter());
+
+            //Populate the data
+
             return null;
         }
     }
+
 
     //Switching to Calendar without Login.
     public void goToCalendar(View v){

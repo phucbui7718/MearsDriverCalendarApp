@@ -1,11 +1,10 @@
 package mears.mearsdrivercalendarapp;
 
-
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,7 +31,7 @@ public class CalendarView extends LinearLayout
     private static final String LOGTAG = "Calendar View";
 
     // how many days to show, defaults to six weeks, 42 days
-    private static final int DAYS_COUNT = 42;
+    private static final int DAYS_COUNT = 35;
 
     // default date format
     private static final String DATE_FORMAT = "MMM yyyy";
@@ -242,20 +241,20 @@ public class CalendarView extends LinearLayout
 
             // if this day has an event, specify event image
             view.setBackgroundResource(0);
-           if (eventDays != null)
+            if (eventDays != null)
             {
-               for (Date eventDate : eventDays)
-               {
-                   if (eventDate.getDate() == day &&
+                for (Date eventDate : eventDays)
+                {
+                    if (eventDate.getDate() == day &&
                             eventDate.getMonth() == month &&
-                           eventDate.getYear() == year)
-                   {
-                       // mark this day for event
-                        view.setBackgroundResource(R.drawable.reminder);
-                       break;
+                            eventDate.getYear() == year)
+                    {
+                        // mark this day for event
+                        view.setBackgroundResource(R.color.spring);
+                        break;
                     }
                 }
-          }
+            }
 
             // clear styling
             ((TextView)view).setTypeface(null, Typeface.NORMAL);
@@ -264,13 +263,13 @@ public class CalendarView extends LinearLayout
             if (month != today.getMonth() || year != today.getYear())
             {
                 // if this day is outside current month, grey it out
-                ((TextView)view).setTextColor(ContextCompat.getColor(getContext(), R.color.greyed_out));
+                ((TextView)view).setTextColor(getResources().getColor(R.color.greyed_out));
             }
             else if (day == today.getDate())
             {
                 // if it is today, set it to blue/bold
                 ((TextView)view).setTypeface(null, Typeface.BOLD);
-                ((TextView)view).setTextColor(ContextCompat.getColor(getContext(), R.color.today));
+                ((TextView)view).setTextColor(getResources().getColor(R.color.today));
             }
 
             // set text
