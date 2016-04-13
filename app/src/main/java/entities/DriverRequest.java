@@ -1,6 +1,5 @@
 package entities;
 
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -9,13 +8,11 @@ import java.util.Date;
 
 public class DriverRequest {
 
-
     private long id;
     private String driverNum;
     private DriverRequestType requestType;
     private String requestDate;
     private String reason;
-
 
     public DriverRequest(long id, String driverNum, DriverRequestType requestType,
                          String requestDate, String reason) {

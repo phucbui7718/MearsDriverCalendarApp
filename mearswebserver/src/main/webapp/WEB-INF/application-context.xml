@@ -1,0 +1,2 @@
+<mongo:mongo id="mongoConnection" host="mongodb://admin:admin@ds019038.mlab.com:19038/mearsdriverdb"
+    port="19038" write-concern="1" xmlns:mongo="http://www.springframework.org/schema/data/mongo" />
