@@ -6,7 +6,7 @@ import java.util.List;
 
 
 
-public class Schedule {
+public class DriverSchedule {
 
 
     private long id;
@@ -15,10 +15,10 @@ public class Schedule {
     private String startTime;
     private String endTime;
 
-    public Schedule() {}
+    public DriverSchedule() {}
 
-    public Schedule(long id, String driverNum, String scheduleDate,
-                    String startTime, String endTime) {
+    public DriverSchedule(long id, String driverNum, String scheduleDate,
+                          String startTime, String endTime) {
         this.setId(id);
         this.setDriverNum(driverNum);
         this.setScheduleDate(scheduleDate);

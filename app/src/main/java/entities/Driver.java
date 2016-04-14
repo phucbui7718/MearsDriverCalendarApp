@@ -3,8 +3,6 @@ package entities;
 
 import java.util.List;
 
-import entities.Schedule;
-
 
 public class Driver {
 
@@ -15,7 +13,7 @@ public class Driver {
     private String lastName;
     private String hireDate;
     private String password;
-    private List<Schedule> schedules;
+    private List<DriverSchedule> driverSchedules;
 
     public Driver(){
 
@@ -87,12 +85,12 @@ public class Driver {
         this.password = password;
     }
 
-    public List<Schedule> getSchedules() {
-        return schedules;
+    public List<DriverSchedule> getDriverSchedules() {
+        return driverSchedules;
     }
 
-    public void setSchedules(List<Schedule> schedules) {
-        this.schedules = schedules;
+    public void setDriverSchedules(List<DriverSchedule> driverSchedules) {
+        this.driverSchedules = driverSchedules;
     }
 
 
