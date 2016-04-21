@@ -1,6 +1,9 @@
 package entities;
 
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -64,6 +67,17 @@ public class DriverSchedule {
 
     public void setEndTime(String endTime) {
         this.endTime = endTime;
+    }
+
+    public Date toDate() {
+        try {
+            DateFormat df = new SimpleDateFormat("MM-dd-yyyy");
+            String tempDate = this.scheduleDate.replaceAll("-", "/");
+            return df.parse(tempDate);
+        } catch (ParseException e) {
+            System.out.println("Invalid date format.");
+            return null;
+        }
     }
 
     public String toString() {

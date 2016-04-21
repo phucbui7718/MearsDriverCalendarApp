@@ -34,6 +34,7 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import entities.DriverRequest;
+import entities.DriverSchedule;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -69,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if (statusTextView.getText().toString().equals("201")) {
                     Intent calendarIntent = new Intent(v.getContext(), calendarActivity.class);
+                    calendarIntent.putExtra("userID", usernameEditText.getText().toString());
                     startActivity(calendarIntent);
                 } else {
                     statusTextView.setText("Wrong login information!");
@@ -143,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
     //InsertRequest AsyncTask
    class RequestAsyncTask extends AsyncTask<Void, Void, Void>{
 
-        private  DriverRequest newDriverRequest;
+            private  DriverRequest newDriverRequest;
 
         RequestAsyncTask(DriverRequest newDriverRequest){
             this.newDriverRequest = newDriverRequest;
@@ -155,8 +157,9 @@ public class MainActivity extends AppCompatActivity {
             // Create Rest Template for request
             RestTemplate restTemplate = new RestTemplate();
 
-            String url = "http://10.0.2.2:8099/requests/add";
+            String url = "http://10.0.2.2:8099/get/schedule/{driverNum}";
             restTemplate.getMessageConverters().add(new MappingJacksonHttpMessageConverter());
+
 
             //Populate the data
 
