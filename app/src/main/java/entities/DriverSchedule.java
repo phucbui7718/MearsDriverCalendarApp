@@ -71,7 +71,7 @@ public class DriverSchedule {
 
     public Date toDate() {
         try {
-            DateFormat df = new SimpleDateFormat("MM-dd-yyyy");
+            DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
             String tempDate = this.scheduleDate.replaceAll("-", "/");
             return df.parse(tempDate);
         } catch (ParseException e) {

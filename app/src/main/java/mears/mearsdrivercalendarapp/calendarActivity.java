@@ -10,9 +10,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import org.codehaus.jackson.JsonParser;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.type.TypeReference;
 import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -22,7 +26,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
-
 import entities.Driver;
 import entities.DriverRequest;
 import entities.DriverSchedule;
@@ -31,16 +34,20 @@ import entities.DriverSchedule;
 public class calendarActivity extends AppCompatActivity
 {
     public static  HashSet<Date> events = new HashSet<>();
-
+    public String scheduleJson;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        //Convert LinkedHashMap to Custom Objects
+        ObjectMapper mapper = new ObjectMapper();
+
+
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
 
         //Pull the schedule data from the backend.
-        List<DriverSchedule> driverSchedule = new ArrayList<>();
+        List<DriverSchedule> driverSchedule = new ArrayList<DriverSchedule>();
         String driverNum = getIntent().getExtras().getString("userID");
 
         try {
@@ -53,18 +60,33 @@ public class calendarActivity extends AppCompatActivity
         Log.d("DRIVERSCHEDULE", driverNum);
         Log.d("DRIVERSCHEDULE", driverSchedule.toString());
 
+        //Convert LinkedHashMap to java objects;
+        List<DriverSchedule> scheduleList = new ArrayList<DriverSchedule>();
+
+        try {
+            scheduleJson = mapper.writeValueAsString(driverSchedule);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            scheduleList = mapper.readValue(scheduleJson, mapper.getTypeFactory().constructCollectionType(List.class, DriverSchedule.class));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
         //Put dates into HashSet for color display.
 
 
-//        for (int i = 0; i < driverSchedule.size(); i++){
-//
-//            Log.d("DRIVERSCHEDULE", driverSchedule.get(i).toDate().toString());
-//        }
+        for (int i = 0; i < scheduleList.size(); i++){
+          events.add(scheduleList.get(i).toDate());
+      }
 
 
         CalendarView cv = ((CalendarView)findViewById(R.id.calendar_view));
-        events.add(new Date());
+
+
         cv.updateCalendar(events);
 
         // assign event handler
