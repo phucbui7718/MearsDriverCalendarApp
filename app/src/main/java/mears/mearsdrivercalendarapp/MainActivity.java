@@ -5,12 +5,14 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -22,6 +24,7 @@ import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
 import org.springframework.http.converter.xml.SourceHttpMessageConverter;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
@@ -40,7 +43,7 @@ import entities.DriverSchedule;
 public class MainActivity extends AppCompatActivity {
 
 
-    private String LOGIN_URL = "http://localhost:8090";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +62,19 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+
+
+                if(usernameEditText.getText().equals("") || passwordEditText.getText().toString().equals("")){
+
+                    Toast.makeText(getApplicationContext(), "Please enter Driver ID and/or password!", Toast.LENGTH_LONG).show();
+                }
+
+                else
+
+                {
                 //Validating driverNum and password.
                 try {
+
                     statusTextView.setText(new LoginTask().execute(new AsyncTaskParams(usernameEditText.getText().toString(), passwordEditText.getText().toString())).get());
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -68,15 +82,23 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                if (statusTextView.getText().toString().equals("201")) {
+
+                if (statusTextView.getText().toString().equals("200")) {
                     Intent calendarIntent = new Intent(v.getContext(), calendarActivity.class);
                     calendarIntent.putExtra("userID", usernameEditText.getText().toString());
+                    calendarActivity.events.clear();
                     startActivity(calendarIntent);
-                } else {
-                    statusTextView.setText("Wrong login information!");
+
                 }
 
-            }
+                else  {
+
+                    statusTextView.setText("Wrong login information!");
+                    usernameEditText.setText("");
+                    passwordEditText.setText("");
+
+                }
+            }}
         });
     }
 
@@ -120,26 +142,35 @@ public class MainActivity extends AppCompatActivity {
 
     //Login AsyncTask
     class LoginTask extends AsyncTask<AsyncTaskParams, String, String>{
-
+        private ResponseEntity<String> response;
         @Override
-        protected String doInBackground(AsyncTaskParams... params)   {
-
-            // Create Rest Template for request
-            RestTemplate restTemplate = new RestTemplate();
-
-            String url = "http://10.0.2.2:8099/authenticate/login/{driverNum}/{password}";
-            restTemplate.getMessageConverters().add(new MappingJacksonHttpMessageConverter());
-
-            //input the driverNum and Password
-            Map<String, String> vars = new HashMap<String, String>();
-            vars.put("driverNum", params[0].driverNum);
-            vars.put("password", params[0].password);
+        protected String doInBackground(AsyncTaskParams... params)  {
 
 
-          ResponseEntity<String> response = restTemplate.getForEntity(url, String.class, vars);
+                // Create Rest Template for request
+                RestTemplate restTemplate = new RestTemplate();
+
+                String url = "http://10.0.2.2:8099/authenticate/login/{driverNum}/{password}";
+                restTemplate.getMessageConverters().add(new MappingJacksonHttpMessageConverter());
+
+                //input the driverNum and Password
+                Map<String, String> vars = new HashMap<String, String>();
+                vars.put("driverNum", params[0].driverNum);
+                vars.put("password", params[0].password);
+
+                try {
+                    response = restTemplate.getForEntity(url, String.class, vars);
+
+                } catch (HttpClientErrorException e) {
+                    Log.e("DRIVERSCHEDULE", e.getLocalizedMessage(), e);
+                }
+
 
            return response.getStatusCode().toString();
+
         }
+
+
     }
 
     //InsertRequest AsyncTask
