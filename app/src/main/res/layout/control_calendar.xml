@@ -116,6 +116,125 @@
     <GridView
         android:id="@+id/calendar_grid"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:numColumns="7"/>
+
+    <RelativeLayout
+        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        >
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Choose a date above, then a starting hour and ending hour below.  Tap here to see the day and hours you selected."
+            android:id="@+id/btnShowIntendedSchedule"
+            android:onClick="setDate"
+            style="@style/Base.TextAppearance.AppCompat.Body1"
+            android:background="#CCBADC"
+            android:nestedScrollingEnabled="false"
+            android:singleLine="false"
+            android:textColor="#fffefe"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Start Time"
+            android:id="@+id/textView2"
+            android:layout_below="@+id/btnShowIntendedSchedule"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="8dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="End Time"
+            android:id="@+id/textView3"
+            android:layout_below="@+id/btnShowIntendedSchedule"
+            android:layout_toRightOf="@+id/textView2"
+            android:layout_marginLeft="23dp"
+            android:layout_marginTop="8dp"
+            android:textStyle="bold" />
+
+        <TimePicker
+            android:layout_width="86dp"
+            android:layout_height="300dp"
+            android:id="@+id/timePicker"
+            android:numbersBackgroundColor="#f50c0c"
+            android:layout_below="@+id/textView2"
+            android:numbersSelectorColor="#f20303"
+            android:numbersInnerTextColor="#ff0000"
+            android:numbersTextColor="#ff0000"
+            android:nestedScrollingEnabled="true"
+            style="@style/AppTheme"
+            android:amPmBackgroundColor="#f9dc07"
+            android:background="#fffffa"
+            android:paddingTop="16dp"
+            android:timePickerMode="spinner"/>
+
+
+        <TimePicker
+            style="@style/AppTheme"
+            android:layout_width="86dp"
+            android:layout_height="400dp"
+            android:id="@+id/timePicker3"
+            android:numbersBackgroundColor="#f50c0c"
+            android:numbersSelectorColor="#f20303"
+            android:numbersInnerTextColor="#ff0000"
+            android:numbersTextColor="#ff0000"
+            android:nestedScrollingEnabled="true"
+            android:amPmBackgroundColor="#f9dc07"
+            android:layout_below="@+id/textView3"
+            android:layout_toRightOf="@+id/timePicker"
+            android:background="#fffffa"
+            android:paddingTop="16dp"
+            android:timePickerMode="spinner">
+
+
+        </TimePicker>
+
+
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="120dp"
+            android:text="Output Will go Here"
+            android:id="@+id/txtOutputWindow"
+            android:layout_below="@+id/btnShowIntendedSchedule"
+            android:background="#6238e7"
+            android:inputType="textMultiLine"
+            android:layout_toRightOf="@+id/timePicker3"
+            android:gravity="center"
+            android:textColor="#ffffff"
+             />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Request Day Off"
+            android:id="@+id/btnRequestDayOff"
+            android:layout_toRightOf="@+id/timePicker3"
+            android:background="#0501ff"
+            android:layout_below="@+id/txtOutputWindow"
+            android:textColor="#ffffff" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Request Work"
+            android:id="@+id/btnRequestWork"
+            android:layout_below="@+id/btnRequestDayOff"
+            android:layout_toRightOf="@+id/timePicker3"
+            android:background="#5f01b2"
+            android:textColor="#ffffff" />
+
+
+
+    </RelativeLayout>
 </LinearLayout>

@@ -123,6 +123,8 @@ public class CalendarView extends LinearLayout
 
     private void assignClickHandlers()
     {
+
+
         // add one month and refresh UI
         btnNext.setOnClickListener(new OnClickListener()
         {
@@ -146,6 +148,17 @@ public class CalendarView extends LinearLayout
             }
         });
 
+
+        // on pressing a day
+        grid.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+                                        @Override
+                                        public void onItemClick(AdapterView<?> view, View cell, int position, long id) {
+                                            eventHandler.onDayPress((Date)view.getItemAtPosition(position));
+                                        }
+                                    }
+
+        );
         // long-pressing a day
         grid.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener()
         {
@@ -251,7 +264,7 @@ public class CalendarView extends LinearLayout
                             eventDate.getYear() == year)
                     {
                         // mark this day for event
-                        view.setBackgroundResource(R.color.spring);
+                        view.setBackgroundResource(R.color.working);
                         break;
                     }
                 }
@@ -295,5 +308,6 @@ public class CalendarView extends LinearLayout
     public interface EventHandler
     {
         void onDayLongPress(Date date);
+        void onDayPress(Date date);
     }
 }

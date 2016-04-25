@@ -2,17 +2,18 @@ package mears.mearsdrivercalendarapp;
 
 
 import android.os.AsyncTask;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
-import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.type.TypeReference;
 import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
@@ -26,8 +27,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
-import entities.Driver;
-import entities.DriverRequest;
 import entities.DriverSchedule;
 
 
@@ -35,16 +34,87 @@ public class calendarActivity extends AppCompatActivity
 {
     public static  HashSet<Date> events = new HashSet<>();
     public String scheduleJson;
+
+    private TimePicker time_picker;
+    private TimePicker time_picker3;
+    private Button button_show_time;
+    private TextView textOutput;
+    String txtOut;
+    TextView txtView;
+    String txtEmpty = "";
+
+    private Date selectedDate;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         //Convert LinkedHashMap to Custom Objects
         ObjectMapper mapper = new ObjectMapper();
 
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
+        time_picker = (TimePicker) findViewById(R.id.timePicker);
+        time_picker3 = (TimePicker) findViewById(R.id.timePicker3);
+        button_show_time = (Button) findViewById(R.id.btnShowIntendedSchedule);
+        time_picker.setIs24HourView(true);
+        time_picker3.setIs24HourView(true);
+        txtView = (TextView)findViewById(R.id.txtOutputWindow);
+
+        button_show_time.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (time_picker.getCurrentHour() != 0 && time_picker3.getCurrentHour() != 0) {//all but 0 conditions
+                            if (time_picker3.getCurrentHour() > time_picker.getCurrentHour()) {//make sure end time is later than start time in non zero start time
+                                if (time_picker.getCurrentHour() < 10) {//this is to append a 0 to start time
+                                    if (time_picker3.getCurrentHour() < 10) {//this is to append a 0 to start time and end time
+                                        txtOut = "If you wish to request the following work schedule: " + (selectedDate.getMonth()) + "/" + selectedDate.getDay() +
+                                                "/" + selectedDate.getYear() + " from " + "0" + time_picker.getCurrentHour() + ":00 hours" + " to " + "0" + time_picker3.getCurrentHour() +
+                                                ":00 hours," + " please tap the Request Work button below, or pick another day and/or time.";
+                                        txtView.setText(txtOut);
+                                    } else if (time_picker3.getCurrentHour() >= 10){//this is to append a 0 to start time only
+                                        txtOut = "If you wish to request the following work schedule: " + (selectedDate.getMonth()) + "/" + selectedDate.getDay() +
+                                                "/" + selectedDate.getYear() + " from " + "0" + time_picker.getCurrentHour() + ":00 hours" + " to " + time_picker3.getCurrentHour() +
+                                                ":00 hours," + " please tap the Request Work button below, or pick another day and/or time.";
+                                        txtView.setText(txtOut);
+                                    }
+                                } else if (time_picker.getCurrentHour() >= 10  && time_picker3.getCurrentHour() >= 10) {//do not append any zeros
+                                    txtOut = "If you wish to request the following work schedule: " + (selectedDate.getMonth()) + "/" + selectedDate.getDay() +
+                                            "/" + selectedDate.getYear() + " from " + time_picker.getCurrentHour() + ":00 hours" + " to " + time_picker3.getCurrentHour() +
+                                            ":00 hours," + " please tap the Request Work button below, or pick another day and/or time.";
+                                    txtView.setText(txtOut);
+                                }
+                            } else if (time_picker.getCurrentHour() >= time_picker3.getCurrentHour()) {//do not allow the start times = or > than end times
+                                txtOut = "The end time must be later than the start time, and any work past 24:00 hours (00 on the End Time slider) must be scheduled on a separate day:  Please try again.";
+                                txtView.setText(txtOut);
+                            }
+                        }else if (time_picker.getCurrentHour() == 0 && time_picker3.getCurrentHour() > 0){//allow for start time zero hour situation when end time is not 24:00
+                            txtOut = "If you wish to request the following work schedule: " + (selectedDate.getMonth()) + "/" + selectedDate.getDay() +
+                                    "/" + selectedDate.getYear() + " from " + "0" + time_picker.getCurrentHour() + ":00 hours" + " to " + "0" + time_picker3.getCurrentHour() +
+                                    ":00 hours," + " please tap the Request Work button below, or pick another day and/or time.";
+                            txtView.setText(txtOut);
+                        }else if (time_picker.getCurrentHour() == 0 && time_picker3.getCurrentHour() == 0){//check independantly for 00 start and end times--do not allow
+                            txtOut = "The end time must be later than the start time, and any work past 24:00 hours (00 on the End Time slider) must be scheduled on a separate day:  Please try again.";
+                            txtView.setText(txtOut);  //end if tp && tp3 !=0
+                        }else if (time_picker.getCurrentHour() >= 10 && time_picker3.getCurrentHour() == 0) {//allow for 24:00 hours end time situation where start time is beyond 9
+                            txtOut = "If you wish to request the following work schedule: " + (selectedDate.getMonth()) + "/" + selectedDate.getDay() +
+                                    "/" + selectedDate.getYear() + " from " + time_picker.getCurrentHour() + ":00 hours" + " to " + "24:00 hours," +
+                                    " please tap the Request Work button below, or pick another day and/or time.";
+                            txtView.setText(txtOut);
+                        }else if (time_picker.getCurrentHour() > 0 && time_picker.getCurrentHour() < 10 && time_picker3.getCurrentHour() == 0){//allow for 24:00 hour end time with 9 or less start time
+                            txtOut = "If you wish to request the following work schedule: " + (selectedDate.getMonth()) + "/" + selectedDate.getDay() +
+                                    "/" + selectedDate.getYear() + " from " + "0" + time_picker.getCurrentHour() + ":00 hours" + " to " + "24" +
+                                    ":00 hours," + " please tap the Request Work button below, or pick another day and/or time.";
+                            txtView.setText(txtOut);
+                        }
+
+                    }//end of public void onClick(View v)
+
+                }//end on click listener
+
+        );//end of button_show_time.setOnClickListener(
+
+
 
         //Pull the schedule data from the backend.
         List<DriverSchedule> driverSchedule = new ArrayList<DriverSchedule>();
@@ -97,7 +167,15 @@ public class calendarActivity extends AppCompatActivity
                 DateFormat df = SimpleDateFormat.getDateInstance();
                 Toast.makeText(calendarActivity.this, df.format(date), Toast.LENGTH_SHORT).show();
             }
+
+            public void onDayPress(Date date){
+
+                selectedDate = date;
+                Toast.makeText(calendarActivity.this, selectedDate.toString(), Toast.LENGTH_LONG).show();
+            }
         });
+
+
 
 
 
@@ -156,4 +234,7 @@ class ScheduleAsyncTask extends AsyncTask<Void, List<DriverSchedule>, List<Drive
         newDriverSchedule = restTemplate.getForObject(url, List.class, vars);
         return newDriverSchedule;
     }
+
+
+
 }
