@@ -138,13 +138,11 @@ public class CalendarView extends LinearLayout
         });
 
         // subtract one month and refresh UI
-        btnPrev.setOnClickListener(new OnClickListener()
-        {
+        btnPrev.setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 currentDate.add(Calendar.MONTH, -1);
-              updateCalendar(calendarActivity.events);
+                updateCalendar(calendarActivity.events);
             }
         });
 
@@ -154,10 +152,14 @@ public class CalendarView extends LinearLayout
         {
                                         @Override
                                         public void onItemClick(AdapterView<?> view, View cell, int position, long id) {
-                                            eventHandler.onDayPress((Date)view.getItemAtPosition(position));
-                                        }
-                                    }
 
+
+                                            eventHandler.onDayPress((Date) view.getItemAtPosition(position));
+
+
+                                        }
+
+                                        }
         );
         // long-pressing a day
         grid.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener()

@@ -38,12 +38,14 @@ public class calendarActivity extends AppCompatActivity
     private TimePicker time_picker;
     private TimePicker time_picker3;
     private Button button_show_time;
+    private Button submitWork;
     private TextView textOutput;
-    String txtOut;
+    public String txtOut;
     TextView txtView;
     String txtEmpty = "";
-
-    private Date selectedDate;
+    //Convert LinkedHashMap to java objects;
+    public List<DriverSchedule> scheduleList = new ArrayList<DriverSchedule>();
+    public Date selectedDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -59,6 +61,8 @@ public class calendarActivity extends AppCompatActivity
         time_picker.setIs24HourView(true);
         time_picker3.setIs24HourView(true);
         txtView = (TextView)findViewById(R.id.txtOutputWindow);
+        submitWork = (Button)findViewById(R.id.btnRequestWork);
+
 
         button_show_time.setOnClickListener(
                 new View.OnClickListener() {
@@ -68,19 +72,19 @@ public class calendarActivity extends AppCompatActivity
                             if (time_picker3.getCurrentHour() > time_picker.getCurrentHour()) {//make sure end time is later than start time in non zero start time
                                 if (time_picker.getCurrentHour() < 10) {//this is to append a 0 to start time
                                     if (time_picker3.getCurrentHour() < 10) {//this is to append a 0 to start time and end time
-                                        txtOut = "If you wish to request the following work schedule: " + (selectedDate.getMonth()) + "/" + selectedDate.getDay() +
-                                                "/" + selectedDate.getYear() + " from " + "0" + time_picker.getCurrentHour() + ":00 hours" + " to " + "0" + time_picker3.getCurrentHour() +
+                                        txtOut = "If you wish to request the following work schedule: " + (selectedDate.getMonth() + 1) + "/" + selectedDate.getDate() +
+                                                "/" + (selectedDate.getYear()+ 1900) + " from " + "0" + time_picker.getCurrentHour() + ":00 hours" + " to " + "0" + time_picker3.getCurrentHour() +
                                                 ":00 hours," + " please tap the Request Work button below, or pick another day and/or time.";
                                         txtView.setText(txtOut);
                                     } else if (time_picker3.getCurrentHour() >= 10){//this is to append a 0 to start time only
-                                        txtOut = "If you wish to request the following work schedule: " + (selectedDate.getMonth()) + "/" + selectedDate.getDay() +
-                                                "/" + selectedDate.getYear() + " from " + "0" + time_picker.getCurrentHour() + ":00 hours" + " to " + time_picker3.getCurrentHour() +
+                                        txtOut = "If you wish to request the following work schedule: " + (selectedDate.getMonth() + 1) + "/" + selectedDate.getDate() +
+                                                "/" + (selectedDate.getYear()+ 1900) + " from " + "0" + time_picker.getCurrentHour() + ":00 hours" + " to " + time_picker3.getCurrentHour() +
                                                 ":00 hours," + " please tap the Request Work button below, or pick another day and/or time.";
                                         txtView.setText(txtOut);
                                     }
                                 } else if (time_picker.getCurrentHour() >= 10  && time_picker3.getCurrentHour() >= 10) {//do not append any zeros
-                                    txtOut = "If you wish to request the following work schedule: " + (selectedDate.getMonth()) + "/" + selectedDate.getDay() +
-                                            "/" + selectedDate.getYear() + " from " + time_picker.getCurrentHour() + ":00 hours" + " to " + time_picker3.getCurrentHour() +
+                                    txtOut = "If you wish to request the following work schedule: " + (selectedDate.getMonth() + 1) + "/" + selectedDate.getDate() +
+                                            "/" + (selectedDate.getYear()+ 1900) + " from " + time_picker.getCurrentHour() + ":00 hours" + " to " + time_picker3.getCurrentHour() +
                                             ":00 hours," + " please tap the Request Work button below, or pick another day and/or time.";
                                     txtView.setText(txtOut);
                                 }
@@ -89,21 +93,21 @@ public class calendarActivity extends AppCompatActivity
                                 txtView.setText(txtOut);
                             }
                         }else if (time_picker.getCurrentHour() == 0 && time_picker3.getCurrentHour() > 0){//allow for start time zero hour situation when end time is not 24:00
-                            txtOut = "If you wish to request the following work schedule: " + (selectedDate.getMonth()) + "/" + selectedDate.getDay() +
-                                    "/" + selectedDate.getYear() + " from " + "0" + time_picker.getCurrentHour() + ":00 hours" + " to " + "0" + time_picker3.getCurrentHour() +
+                            txtOut = "If you wish to request the following work schedule: " + (selectedDate.getMonth() + 1) + "/" + selectedDate.getDate() +
+                                    "/" + (selectedDate.getYear()+ 1900) + " from " + "0" + time_picker.getCurrentHour() + ":00 hours" + " to " + "0" + time_picker3.getCurrentHour() +
                                     ":00 hours," + " please tap the Request Work button below, or pick another day and/or time.";
                             txtView.setText(txtOut);
                         }else if (time_picker.getCurrentHour() == 0 && time_picker3.getCurrentHour() == 0){//check independantly for 00 start and end times--do not allow
                             txtOut = "The end time must be later than the start time, and any work past 24:00 hours (00 on the End Time slider) must be scheduled on a separate day:  Please try again.";
                             txtView.setText(txtOut);  //end if tp && tp3 !=0
                         }else if (time_picker.getCurrentHour() >= 10 && time_picker3.getCurrentHour() == 0) {//allow for 24:00 hours end time situation where start time is beyond 9
-                            txtOut = "If you wish to request the following work schedule: " + (selectedDate.getMonth()) + "/" + selectedDate.getDay() +
-                                    "/" + selectedDate.getYear() + " from " + time_picker.getCurrentHour() + ":00 hours" + " to " + "24:00 hours," +
+                            txtOut = "If you wish to request the following work schedule: " + (selectedDate.getMonth() + 1) + "/" + selectedDate.getDate() +
+                                    "/" + (selectedDate.getYear()+ 1900) + " from " + time_picker.getCurrentHour() + ":00 hours" + " to " + "24:00 hours," +
                                     " please tap the Request Work button below, or pick another day and/or time.";
                             txtView.setText(txtOut);
                         }else if (time_picker.getCurrentHour() > 0 && time_picker.getCurrentHour() < 10 && time_picker3.getCurrentHour() == 0){//allow for 24:00 hour end time with 9 or less start time
-                            txtOut = "If you wish to request the following work schedule: " + (selectedDate.getMonth()) + "/" + selectedDate.getDay() +
-                                    "/" + selectedDate.getYear() + " from " + "0" + time_picker.getCurrentHour() + ":00 hours" + " to " + "24" +
+                            txtOut = "If you wish to request the following work schedule: " + (selectedDate.getMonth() + 1) + "/" + selectedDate.getDate() +
+                                    "/" + (selectedDate.getYear()+ 1900) + " from " + "0" + time_picker.getCurrentHour() + ":00 hours" + " to " + "24" +
                                     ":00 hours," + " please tap the Request Work button below, or pick another day and/or time.";
                             txtView.setText(txtOut);
                         }
@@ -114,6 +118,13 @@ public class calendarActivity extends AppCompatActivity
 
         );//end of button_show_time.setOnClickListener(
 
+        submitWork.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Toast.makeText(calendarActivity.this, "Request has been submitted!", Toast.LENGTH_LONG).show();
+            }
+        });
 
 
         //Pull the schedule data from the backend.
@@ -130,8 +141,7 @@ public class calendarActivity extends AppCompatActivity
         Log.d("DRIVERSCHEDULE", driverNum);
         Log.d("DRIVERSCHEDULE", driverSchedule.toString());
 
-        //Convert LinkedHashMap to java objects;
-        List<DriverSchedule> scheduleList = new ArrayList<DriverSchedule>();
+
 
         try {
             scheduleJson = mapper.writeValueAsString(driverSchedule);
@@ -169,9 +179,19 @@ public class calendarActivity extends AppCompatActivity
             }
 
             public void onDayPress(Date date){
-
+                selectedDate = null;
                 selectedDate = date;
-                Toast.makeText(calendarActivity.this, selectedDate.toString(), Toast.LENGTH_LONG).show();
+                txtView.setText("You selected : " + (selectedDate.getMonth() + 1) +"/"+ selectedDate.getDate() + "/" + (selectedDate.getYear()+1900));
+
+                        for (int i = 0; i < scheduleList.size(); i++){
+                    if ( scheduleList.get(i).toDate().getYear() == selectedDate.getYear() && scheduleList.get(i).toDate().getMonth() == selectedDate.getMonth() &&
+                            scheduleList.get(i).toDate().getDay() == selectedDate.getDay()){
+                         String output = (scheduleList.get(i).toDate().getMonth()+1) + "/"+ (scheduleList.get(i).toDate().getDate() +"/"+ (scheduleList.get(i).toDate().getYear()+1900))+ "\n" + "Start Time: "  + scheduleList.get(i).getStartTime() + "\n" + "End time: " + scheduleList.get(i).getEndTime();
+                        txtView.setText(output);
+                        break;
+                    }
+                }
+
             }
         });
 

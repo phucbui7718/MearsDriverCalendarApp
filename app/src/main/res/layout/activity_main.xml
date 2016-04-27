@@ -39,9 +39,9 @@
 
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="60px"
-        android:text="    Enter Driver Number: "
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:text="Enter Driver Number: "
         android:id="@+id/usernameTextView"
         android:layout_marginTop="150dp"
         android:layout_centerHorizontal="true"
@@ -49,8 +49,8 @@
         />
 
     <EditText
-        android:layout_width="300px"
-        android:layout_height="60px"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
         android:id="@+id/usernameEditText"
         android:layout_below="@+id/usernameTextView"
         android:background="@drawable/rounded_edittext"
@@ -59,21 +59,18 @@
         />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="60px"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
         android:text="Enter Password:"
         android:id="@+id/passwordTextView"
         android:gravity="center"
         android:layout_below="@+id/usernameEditText"
-        android:layout_alignLeft="@+id/usernameEditText"
-        android:layout_alignStart="@+id/usernameEditText"
-        android:layout_alignRight="@+id/usernameEditText"
-        android:layout_alignEnd="@+id/usernameEditText"
+        android:layout_centerHorizontal="true"
         />
 
     <EditText
-        android:layout_width="300px"
-        android:layout_height="60px"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
         android:id="@+id/passwordTextEdit"
         android:inputType="textPassword"
         android:layout_below="@+id/passwordTextView"
@@ -106,17 +103,5 @@
         />
 
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Switch"
-        android:id="@+id/loginButton1"
-        android:gravity="center"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/rounded_button"
-        android:layout_below="@+id/statusText"
-        android:layout_centerHorizontal="true"
-        android:onClick="goToCalendar"
-        />
 
 </RelativeLayout>
